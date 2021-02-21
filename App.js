@@ -1,21 +1,57 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react'
+// react-navigation libraries
+import 'react-native-gesture-handler'
+import { NavigationContainer } from '@react-navigation/native'
+import { createStackNavigator } from '@react-navigation/stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+// ui kitten and eva libs
+import * as eva from '@eva-design/eva'
+import { ApplicationProvider, IconRegistry, Icon } from '@ui-kitten/components'
+import { EvaIconsPack } from '@ui-kitten/eva-icons'
+import { default as theme } from './theme.json'
+import LoginScreen from './screens/login'
+import getHeaderTitle from './helpers/headerTitle'
+import { TabNavigator } from './components/BottomNavBar'
 
-export default function App() {
+function HomeTabs () {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+    <TabNavigator />
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const Stack = createStackNavigator()
+
+export default function App () {
+  const [isSignedIn, setIsSignedIn] = useState(false)
+
+  return (
+    <>
+      <IconRegistry icons={EvaIconsPack} />
+      <ApplicationProvider {...eva} theme={{ ...eva.light, ...theme }}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            {
+              isSignedIn ? (
+                <>
+                  <Stack.Screen name="Home" component={HomeTabs} />
+                </>
+              ) : (
+                <>
+                  <Stack.Screen 
+                    name="Login" 
+                    component={LoginScreen} />
+                  <Stack.Screen 
+                    name="Home" 
+                    component={HomeTabs} 
+                    options={({ route }) => ({
+    headerTitle: getHeaderTitle(route),
+  })}/>
+                </>
+              )
+            }
+          </Stack.Navigator>
+        </NavigationContainer>
+      </ApplicationProvider>
+    </>
+  )
+}
