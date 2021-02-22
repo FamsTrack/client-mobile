@@ -3,7 +3,6 @@ import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import CustomMarker from '../components/CustomMarker'
 import TopNavBar from '../components/TopNavBar'
-import BottomNavbar from '../components/BottomNavBar'
 
 export default function HomeScreen () {
   const [region, setRegion] = useState({
@@ -18,15 +17,29 @@ export default function HomeScreen () {
       id: 1,
       latitude: 37.78825,
       longitude: -122.4324,
-      name: 'Rudi',
-      img: require('../assets/boy-3.png')
+      name: 'Kenji',
+      img: 'https://uifaces.co//our-content//donated//gPZwCbdS.jpg'
     },
     {
       id: 2,
       latitude: 37.786,
       longitude: -122.41,
-      name: 'Sarah',
-      img: require('../assets/girl-1.png')
+      name: 'Samara',
+      img: 'https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ'
+    },
+    {
+      id: 3,
+      latitude: 37.7900,
+      longitude: -122.41,
+      name: 'Kanya',
+      img: 'https://uifaces.co//our-content//donated//93aChDW6.jpg'
+    },
+    {
+      id: 4,
+      latitude: 37.78825,
+      longitude: -122.440,
+      name: 'Sandra',
+      img: 'https://uifaces.co/our-content/donated/hRomGWuB.jpg'
     },
   ])
 
@@ -43,21 +56,18 @@ export default function HomeScreen () {
           region={region}
           onRegionChange={handleOnRegionChange}
           loadingEnabled={true}>
-           {
-             markers.map((marker) => {
-               return <CustomMarker
-               key={marker.id}
-               lat={marker.latitude}
-               lng={marker.longitude}
-               name={marker.name}
-               img={marker.img} />
+          {
+            markers.map((marker) => {
+              return <CustomMarker
+                key={marker.id}
+                lat={marker.latitude}
+                lng={marker.longitude}
+                name={marker.name}
+                img={marker.img} />
             })
-           }
+          }
         </MapView>
       </View>
-      {
-      //<BottomNavbar style={{ flex: 1 }} />
-      }
     </>
   )
 }

@@ -1,14 +1,14 @@
-import React, {useState} from 'react'
-import { StyleSheet, View, Text, ImageBackground, FlatList } from 'react-native'
+import React, { useState } from 'react'
+import { StyleSheet, Text, FlatList, Divider, View } from 'react-native'
 import NewsCard from '../components/NewsCard'
+import TopNavBar from '../components/TopNavBar'
 
-
-
-export default function NewsScreen () {  
+export default function NewsScreen () {
   const renderItem = ({ item }) => (
-    <NewsCard title={item.title} 
-              img={item.img}
-              source={item.source}/>
+    <NewsCard
+      title={item.title}
+      img={item.img}
+      source={item.source} />
   )
 
   const [newsList] = useState([
@@ -38,38 +38,33 @@ export default function NewsScreen () {
     },
   ])
 
-  return ( 
+  return (
     <>
-      <FlatList
-        data={newsList}
-        renderItem={renderItem}
-        keyExtractor={item => item.id}
-      >
-      </FlatList>
-        {
-          //newsList.map(news => {
-            //return <NewsCard
-              //key={news.id}
-              //title={news.title}
-              //img={news.img}
-              //source={news.source}/>
+      <TopNavBar style={{ flex: 1 }} />
+      <View style={{ flex: 4 }}>
+        <FlatList
+          data={newsList}
+          renderItem={renderItem}
+          keyExtractor={item => item.id.toString()}
+          ItemSeparatorComponent={Divider}
+        />
+      </View>
+      {
+        //newsList.map(news => {
+        //return <NewsCard
+        //key={news.id}
+        //title={news.title}
+        //img={news.img}
+        //source={news.source}/>
         //})
-        }
+      }
     </>
   )
 }
 
 const styles = StyleSheet.create({
-  input: {
-    margin: 2,
+  container: {
+    maxHeight: 200,
   },
-  loginButton: {
-    marginTop: 120,
-    alignSelf: 'stretch'
-  },
-  tinyLogo: {
-    width: 300,
-    height: 300,
-  }
 })
 

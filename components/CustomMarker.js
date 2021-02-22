@@ -11,7 +11,7 @@ export default function CustomMarker (props) {
       <View style={{ width: 50, height: 50 }}>
         <Avatar
           style={styles.logo}
-          source={props.img}
+          source={{uri: props.img}}
         />
       </View>
     </Marker>

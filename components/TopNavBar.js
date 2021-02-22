@@ -1,28 +1,37 @@
 import React from 'react'
 import { StyleSheet, View, Image } from 'react-native'
 import { Avatar, Icon, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components'
+import { useNavigation } from '@react-navigation/native'
 
-const MenuIcon = (props) => (
-  <Icon {...props} name='more-vertical'/>
-)
 
-const ProfileIcon = (props) => (
-  <Icon {...props} name='person-outline'/>
-)
+export default function TopNavBar ({ Login }) {
+  const [menuVisible, setMenuVisible] = React.useState(false)
+  const navigation = useNavigation()
 
-const LogoutIcon = (props) => (
-  <Icon {...props} name='log-out'/>
-)
+  const MenuIcon = (props) => (
+    <Icon {...props} name='more-vertical' />
+  )
 
-export default function TopNavBar () {
-  const [menuVisible, setMenuVisible] = React.useState(false);
+  const ProfileIcon = (props) => (
+    <Icon {...props} name='person-outline' />
+  )
+
+  const LogoutIcon = (props) => (
+    <Icon {...props} name='log-out' />
+  )
+
+  const handleLogOut = () => {
+    console.log('>>> logging out')
+    // di sini hapus asyncstorage
+    navigation.navigate('Login')
+  }
 
   const toggleMenu = () => {
     setMenuVisible(!menuVisible);
   };
 
   const renderMenuAction = () => (
-    <TopNavigationAction icon={MenuIcon} onPress={toggleMenu}/>
+    <TopNavigationAction icon={MenuIcon} onPress={toggleMenu} />
   );
 
   const renderOverflowMenuAction = () => (
@@ -31,8 +40,11 @@ export default function TopNavBar () {
         anchor={renderMenuAction}
         visible={menuVisible}
         onBackdropPress={toggleMenu}>
-        <MenuItem accessoryLeft={ProfileIcon} title='Profile'/>
-        <MenuItem accessoryLeft={LogoutIcon} title='Logout'/>
+        <MenuItem accessoryLeft={ProfileIcon} title='Profile' />
+        <MenuItem 
+          accessoryLeft={LogoutIcon} 
+          title='Go to Login' 
+          onPress={() => handleLogOut()}/>
       </OverflowMenu>
     </React.Fragment>
   );
@@ -41,9 +53,9 @@ export default function TopNavBar () {
     <View style={styles.titleContainer}>
       <Avatar
         style={styles.logo}
-        source={require('../assets/boy-2.png')}
+        source={{uri: 'https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200'}}
       />
-      <Text {...props}>Budi Doremi</Text>
+      <Text {...props}>Budi Doremi's family</Text>
     </View>
   )
 

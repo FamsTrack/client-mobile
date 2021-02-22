@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet } from 'react-native'
-import { NavigationContainer } from '@react-navigation/native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { BottomNavigation, BottomNavigationTab, Icon } from '@ui-kitten/components'
 import HomeScreen from '../screens/home'
@@ -11,19 +10,19 @@ import MembersScreen from '../screens/members'
 const { Navigator, Screen } = createBottomTabNavigator()
 
 const HomeIcon = (props) => (
-  <Icon {...props} name='home'/>
+  <Icon {...props} name='home' />
 )
 
 const NewsIcon = (props) => (
-  <Icon {...props} name='book-open'/>
+  <Icon {...props} name='book-open' />
 )
 
 const ScheduleIcon = (props) => (
-  <Icon {...props} name='calendar'/>
+  <Icon {...props} name='calendar' />
 )
 
 const MembersIcon = (props) => (
-  <Icon {...props} name='people'/>
+  <Icon {...props} name='people' />
 )
 
 const BottomTabBar = ({ navigation, state }) => (
@@ -31,28 +30,28 @@ const BottomTabBar = ({ navigation, state }) => (
     style={styles.bottomNavigation}
     selectedIndex={state.index}
     onSelect={index => navigation.navigate(state.routeNames[index])}>
-    <BottomNavigationTab 
-      title='HOME' 
-      icon={HomeIcon}/>
-    <BottomNavigationTab 
-      title='NEWS' 
+    <BottomNavigationTab
+      title='HOME'
+      icon={HomeIcon} />
+    <BottomNavigationTab
+      title='NEWS'
       icon={NewsIcon}
-      />
-    <BottomNavigationTab 
-      title='SCHEDULE' 
-      icon={ScheduleIcon}/>
-    <BottomNavigationTab 
-      title='MEMBERS' 
-      icon={MembersIcon}/>
+    />
+    <BottomNavigationTab
+      title='SCHEDULE'
+      icon={ScheduleIcon} />
+    <BottomNavigationTab
+      title='MEMBERS'
+      icon={MembersIcon} />
   </BottomNavigation>
 )
 
 export const TabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
-    <Screen name='Home' component={HomeScreen}/>
-    <Screen name='News' component={NewsScreen}/>
-    <Screen name='Schedule' component={ScheduleScreen}/>
-    <Screen name='Members' component={MembersScreen}/>
+    <Screen name='Home' component={HomeScreen} />
+    <Screen name='News' component={NewsScreen} />
+    <Screen name='Schedule' component={ScheduleScreen} />
+    <Screen name='Members' component={MembersScreen} />
   </Navigator>
 )
 
