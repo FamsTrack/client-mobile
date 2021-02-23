@@ -39,7 +39,7 @@ export default function LoginScreen ({ navigation }) {
       console.log('>>>> ini loading:', loading)
       setSpinner(true)
     }
-    setSpinner(false)
+    setVisible(false)
   }, [isLoggedIn, error, loading])
 
   const toggleSecureEntry = () => {
@@ -56,7 +56,7 @@ export default function LoginScreen ({ navigation }) {
     const payload = {
       email,
       password,
-      expoToken: token
+      pushToken: token
     }
     console.log('>>> disini pevita login', payload)
 
