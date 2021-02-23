@@ -26,9 +26,8 @@ export default function LoginScreen ({ navigation }) {
   useEffect(() => {
     if (isLoggedIn) {
       navigation.navigate('Home')
-    } else {
-      setWarningText('Wrong password / email!')
-      setVisible(true)
+      setVisible(false)
+      setSpinner(false)
     }
     if (error) {
       console.log('>>> ini error', error)
@@ -39,7 +38,6 @@ export default function LoginScreen ({ navigation }) {
       console.log('>>>> ini loading:', loading)
       setSpinner(true)
     }
-    setVisible(false)
   }, [isLoggedIn, error, loading])
 
   const toggleSecureEntry = () => {
@@ -51,6 +49,11 @@ export default function LoginScreen ({ navigation }) {
       <Icon {...props} name={secureTextEntry ? 'eye-off' : 'eye'} />
     </TouchableWithoutFeedback>
   )
+
+  const handleVisible = () => {
+    setVisible(false)
+    setSpinner(false)
+  }
 
   const handleSubmit = () => {
     const payload = {
@@ -98,10 +101,9 @@ export default function LoginScreen ({ navigation }) {
         {
           visible && <CustomModal
             text={warningText}
-            setVisible={() => setVisible(false)} />
+            setVisible={() => handleVisible()} />
         }
         {
-          // not yet working
           spinner && <Spinner />
         }
       </View>

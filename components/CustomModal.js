@@ -7,7 +7,7 @@ export default function CustomModal (props) {
 
   const handlePress = () => {
     setVisible(false)
-    props.setVisible(false)
+    props.setVisible()
   }
 
   return (
