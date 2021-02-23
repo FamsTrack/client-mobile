@@ -3,6 +3,7 @@ import { Text, View } from 'react-native'
 // expo notification
 import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants'
+import { storeToken } from './stores/actions/user'
 // react-navigation libraries
 import 'react-native-gesture-handler'
 import { NavigationContainer } from '@react-navigation/native'
@@ -25,6 +26,11 @@ import LoginScreen from './screens/login'
 import EditProfile from './screens/editProfile'
 import getHeaderTitle from './helpers/headerTitle'
 import { TabNavigator } from './components/BottomNavBar'
+
+// for socket.io client
+import io from 'socket.io-client'
+window.navigator.userAgent = "react-native"
+const ENDPOINT = 'http://192.168.1.7/:3000'
 
 
 function HomeTabs () {
@@ -49,6 +55,12 @@ export default function App () {
   const [notification, setNotification] = useState(false)
   const notificationListener = useRef()
   const responseListener = useRef()
+
+  useEffect(() => {
+    if (expoPushToken) {
+      store.dispatch(storeToken(expoPushToken))
+    }
+  }, [expoPushToken])
 
   // register for push notification
   const registerForPushNotificationsAsync = async () => {
@@ -106,15 +118,43 @@ export default function App () {
     }
   }, [])
 
+  useEffect(() => {
+    const socket = io(ENDPOINT)
+    socket.on('data:test', data => {
+      setResponse(data)
+      console.log('>>>>', data)
+    })
+    //const socket = io('http://localhost:3000', {
+    //transports: ['websocket'], jsonp: false
+    //});
+    //socket.connect();
+    //socket.on('connect', () => {
+    //console.log('connected to socket server');
+    //});
+
+    //var socket = new SocketIO('localhost:3000');
+    //socket.on('connect', () => {
+    //console.log('Wahey -> connected!');
+    //});
+
+    //const socket = io(ENDPOINT, { transports: ['websocket'], forceNew: true });
+    //socket.on('connected', () => {
+    //debugger;
+    //})
+
+    //// Clean up the effect
+    return () => socket.disconnect()
+  }, [])
+
   return (
     <>
       <IconRegistry icons={EvaIconsPack} />
       <SafeAreaProvider>
-        <ApplicationProvider 
-          {...eva} 
+        <ApplicationProvider
+          {...eva}
           theme={{ ...eva.light, ...theme }}
-          //customMapping={mapping}
-          >
+        //customMapping={mapping}
+        >
           <Provider store={store}>
             <NavigationContainer>
               <Stack.Navigator>

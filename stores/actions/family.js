@@ -1,3 +1,8 @@
+const endpoint = 'http://192.168.1.7:3000/families'
+//const endpoint = 'http://192.168.1.3:3000/families'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import axios from 'axios'
+
 export function fetchFamiliesStart () {
   return {
     type: 'FETCH_FAMILIES_START'
@@ -18,10 +23,10 @@ export function fetchAFamilySuccess (data) {
   }
 }
 
+
 export function fetchFamiliesFailed (error) {
   return {
-    type: 'FETCH_FAMILIES_FAILED',
-    payload: error
+    type: 'FETCH_FAMILIES_FAILED', payload: error
   }
 }
 
@@ -41,28 +46,55 @@ export function fetchFamilies (url) {
 
     } catch (err) {
       dispatch(fetchFamiliesFailed(err))
-      console.log('err', err)
+      console.log('test', err)
     }
   }
 }
 
-export function fetchAFamily (url) {
+export function fetchAFamily () {
   return async (dispatch) => {
     try {
 
       dispatch(fetchFamiliesStart())
-      const res = await fetch(url)
+      const access_token = await AsyncStorage.getItem('access_token')
 
-      if (!res.ok) {
-        throw Error(res.statusText)
+      const response = await axios.get(`${endpoint}/user`, {
+        headers: {
+          access_token
+        }
+      })
+
+      const { name, contact, address, gender } = response.data
+
+      const payloadUser = {
+        name,
+        contact,
+        address,
+        gender
       }
 
-      const data = await res.json()
-      dispatch(fetchAFamilySuccess(data))
+      const payloadSchedule = response.data.client[0].group.schedule
 
+      dispatch(fetchAFamilySuccess(payloadUser))
+      dispatch(addClients(response.data.client))
+      dispatch(addSchedules(payloadSchedule))
     } catch (err) {
       dispatch(fetchFamiliesFailed(err))
-      console.log('err', err)
+      console.log('>>> err', err)
     }
+  }
+}
+
+export function addClients (data) {
+  return {
+    type: 'ADD_CLIENTS',
+    payload: data
+  }
+}
+
+export function addSchedules (data) {
+  return {
+    type: 'ADD_SCHEDULES',
+    payload: data
   }
 }

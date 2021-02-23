@@ -1,14 +1,16 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, FlatList, Divider, View } from 'react-native'
 import NewsCard from '../components/NewsCard'
 import TopNavBar from '../components/TopNavBar'
 
 export default function NewsScreen () {
+  //const { news, loading, error } = useSelector((state) => state.news)
+
   const renderItem = ({ item }) => (
     <NewsCard
-      title={item.title}
-      img={item.img}
-      source={item.source} />
+      title={item.name}
+      img={item.image}
+      source={item.description} />
   )
 
   const [newsList] = useState([

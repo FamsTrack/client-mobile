@@ -8,7 +8,7 @@ import { fetchLogout } from '../stores/actions/user'
 export default function TopNavBar ({ Login }) {
   const [menuVisible, setMenuVisible] = React.useState(false)
   const navigation = useNavigation()
-  const { access_token, loading, error } = useSelector((state) => state.user)
+  const { family, loading, error } = useSelector((state) => state.family)
   const dispatch = useDispatch()
 
   const MenuIcon = (props) => (
@@ -59,7 +59,7 @@ export default function TopNavBar ({ Login }) {
         style={styles.logo}
         source={{uri: 'https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200'}}
       />
-      <Text {...props}>Budi Doremi's family</Text>
+      <Text {...props}>{family.name}'s family</Text>
     </View>
   )
 

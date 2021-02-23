@@ -1,4 +1,6 @@
-const endpoint = 'http://192.168.1.3:3000/login'
+const endpoint = 'http://192.168.1.7:3000/login'
+//const endpoint = 'http://192.168.1.3:3000/login'
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export function loginStart () {
   return {
@@ -6,10 +8,9 @@ export function loginStart () {
   }
 }
 
-export function loginSuccess (data) {
+export function loginSuccess () {
   return {
-    type: 'LOGIN_SUCCESS',
-    payload: data
+    type: 'LOGIN_SUCCESS'
   }
 }
 
@@ -28,21 +29,20 @@ export function fetchLogin (payload) {
       const res = await fetch(endpoint, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
-            // 'Content-Type': 'application/x-www-form-urlencoded',
-          },
+          'Content-Type': 'application/json'
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
         body: JSON.stringify(payload)
       })
-
-
-      console.log('>>>>', JSON.stringify(res))
 
       if (!res.ok) {
         throw Error(res.statusText)
       }
 
       const data = await res.json()
-      dispatch(loginSuccess(data.access_token))
+
+      await AsyncStorage.setItem('access_token', data.access_token)
+      dispatch(loginSuccess())
 
     } catch (err) {
       dispatch(loginFailed(err))
@@ -51,8 +51,15 @@ export function fetchLogin (payload) {
   }
 }
 
-export function fetchLogout (payload) {
+export function fetchLogout () {
   return {
     type: 'LOGOUT'
+  }
+}
+
+export function storeToken (data) {
+  return {
+    type: 'STORE_TOKEN',
+    payload: data
   }
 }

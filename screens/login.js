@@ -7,7 +7,6 @@ import CustomModal from '../components/CustomModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchLogin } from '../stores/actions/user'
 
-
 const AlertIcon = (props) => (
   <Icon {...props} name='alert-circle-outline' />
 )
@@ -15,30 +14,33 @@ const AlertIcon = (props) => (
 export default function LoginScreen ({ navigation }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [role, setRole] = useState('user')
   const [warningText, setWarningText] = useState('')
   const [visible, setVisible] = useState(false)
   const [spinner, setSpinner] = useState(false)
-  const { access_token, loading, error } = useSelector((state) => state.user)
+  const { isLoggedIn, token, loading, error } = useSelector((state) => state.user)
 
   const dispatch = useDispatch()
 
   const [secureTextEntry, setSecureTextEntry] = React.useState(true)
 
   useEffect(() => {
-    if (access_token) {
+    if (isLoggedIn) {
       navigation.navigate('Home')
-    } else if (error) {
+    } else {
+      setWarningText('Wrong password / email!')
+      setVisible(true)
+    }
+    if (error) {
       console.log('>>> ini error', error)
       setWarningText('Wrong password / email!')
       setVisible(true)
     }
     if (loading) {
       console.log('>>>> ini loading:', loading)
-      setSpinner(true) 
+      setSpinner(true)
     }
     setSpinner(false)
-  }, [access_token, error, loading])
+  }, [isLoggedIn, error, loading])
 
   const toggleSecureEntry = () => {
     setSecureTextEntry(!secureTextEntry)
@@ -53,8 +55,10 @@ export default function LoginScreen ({ navigation }) {
   const handleSubmit = () => {
     const payload = {
       email,
-      password
+      password,
+      expoToken: token
     }
+    console.log('>>> disini pevita login', payload)
 
     dispatch(fetchLogin(payload))
   }

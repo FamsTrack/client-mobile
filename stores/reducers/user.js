@@ -1,7 +1,8 @@
 const initialState = {
   loading: false,
   error: '',
-  access_token: ''
+  isLoggedIn: true,
+  token: ''
 }
 
 export function userReducer (state = initialState, action) {
@@ -14,18 +15,25 @@ export function userReducer (state = initialState, action) {
     case 'LOGIN_SUCCESS':
       return {
         ...state,
-        access_token: action.payload,
-        loading: false
+        isLoggedIn: true,
+        loading: false,
+        error: false
       }
     case 'LOGOUT':
       return {
         ...state,
-        access_token: ''
+        isLoggedIn: false,
+        error: false
       }
     case 'LOGIN_FAILED':
       return {
         ...state,
         error: action.payload
+      }
+    case 'STORE_TOKEN':
+      return {
+        ...state,
+        token: action.payload
       }
     default:
       return state

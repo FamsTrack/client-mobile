@@ -2,7 +2,9 @@ const initialState = {
   families: [],
   loading: false,
   error: '',
-  family: {}
+  family: {},
+  clients: [],
+  schedules: []
 }
 
 export function familyReducer (state = initialState, action) {
@@ -21,8 +23,19 @@ export function familyReducer (state = initialState, action) {
     case 'FETCH_A_FAMILY':
       return {
         ...state,
-        family: action.payload,
-        loading: false
+        family: action.payload
+      }
+    case 'ADD_CLIENTS':
+      return {
+        ...state,
+        clients: action.payload
+      }
+    case 'ADD_SCHEDULES':
+      return {
+        ...state,
+        schedules: action.payload,
+        loading: false,
+        error: ''
       }
     case 'FETCH_FAMILIES_FAILED':
       return {
