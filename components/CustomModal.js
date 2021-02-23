@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { Button, Card, Modal, Text } from '@ui-kitten/components';
 
 export default function CustomModal (props) {
-
-  const [visible, setVisible] = React.useState(true)
+  const [visible, setVisible] = useState(true)
 
   const handlePress = () => {
     setVisible(false)

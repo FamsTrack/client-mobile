@@ -1,10 +1,17 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import CustomMarker from '../components/CustomMarker'
 import TopNavBar from '../components/TopNavBar'
+import { useSelector, useDispatch } from 'react-redux'
+import { fetchAClient } from '../stores/actions/client'
+import store from '../stores/'
 
 export default function HomeScreen () {
+  useEffect(() => {
+    console.log('>>> store state:', store.getState())
+  })
+
   const [region, setRegion] = useState({
     latitude: 37.78825,
     longitude: -122.4324,

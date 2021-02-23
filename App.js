@@ -16,6 +16,11 @@ import { default as theme } from './theme.json'
 // react native elements
 import { SafeAreaProvider } from 'react-native-safe-area-context'
 
+// react redux
+import { Provider } from 'react-redux'
+import store from './stores/'
+
+// components and helpers
 import LoginScreen from './screens/login'
 import EditProfile from './screens/editProfile'
 import getHeaderTitle from './helpers/headerTitle'
@@ -110,46 +115,48 @@ export default function App () {
           theme={{ ...eva.light, ...theme }}
           //customMapping={mapping}
           >
-          <NavigationContainer>
-            <Stack.Navigator>
-              {
-                isSignedIn ? (
-                  <>
-                    <Stack.Screen name="Home" component={HomeTabs} />
-                    <Stack.Screen name="EditProfile" component={EditProfile} />
-                  </>
-                ) : (
+          <Provider store={store}>
+            <NavigationContainer>
+              <Stack.Navigator>
+                {
+                  isSignedIn ? (
                     <>
-                      <Stack.Screen
-                        name="Login"
-                        component={LoginScreen} />
-                      <Stack.Screen
-                        name="Home"
-                        component={HomeTabs}
-                        options={({ route }) => ({
-                          headerTitle: getHeaderTitle(route),
-                        })} />
+                      <Stack.Screen name="Home" component={HomeTabs} />
+                      <Stack.Screen name="EditProfile" component={EditProfile} />
                     </>
-                  )
-              }
-            </Stack.Navigator>
-          </NavigationContainer>
-          {
-            // buat testing push notification
-            //<View
-            //style={{
-            //flex: 1,
-            //alignItems: 'center',
-            //justifyContent: 'space-around',
-            //}}>
-            //<Text>Your expo push token: {expoPushToken}</Text>
-            //<View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            //<Text>Title: {notification && notification.request.content.title} </Text>
-            //<Text>Body: {notification && notification.request.content.body}</Text>
-            //<Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-            //</View>
-            //</View>
-          }
+                  ) : (
+                      <>
+                        <Stack.Screen
+                          name="Login"
+                          component={LoginScreen} />
+                        <Stack.Screen
+                          name="Home"
+                          component={HomeTabs}
+                          options={({ route }) => ({
+                            headerTitle: getHeaderTitle(route),
+                          })} />
+                      </>
+                    )
+                }
+              </Stack.Navigator>
+            </NavigationContainer>
+            {
+              // buat testing push notification
+              //<View
+              //style={{
+              //flex: 1,
+              //alignItems: 'center',
+              //justifyContent: 'space-around',
+              //}}>
+              //<Text>Your expo push token: {expoPushToken}</Text>
+              //<View style={{ alignItems: 'center', justifyContent: 'center' }}>
+              //<Text>Title: {notification && notification.request.content.title} </Text>
+              //<Text>Body: {notification && notification.request.content.body}</Text>
+              //<Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
+              //</View>
+              //</View>
+            }
+          </Provider>
         </ApplicationProvider>
       </SafeAreaProvider>
     </>

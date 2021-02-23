@@ -1,12 +1,15 @@
 import React from 'react'
+import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, View, Image } from 'react-native'
 import { Avatar, Icon, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components'
 import { useNavigation } from '@react-navigation/native'
-
+import { fetchLogout } from '../stores/actions/user'
 
 export default function TopNavBar ({ Login }) {
   const [menuVisible, setMenuVisible] = React.useState(false)
   const navigation = useNavigation()
+  const { access_token, loading, error } = useSelector((state) => state.user)
+  const dispatch = useDispatch()
 
   const MenuIcon = (props) => (
     <Icon {...props} name='more-vertical' />
@@ -22,6 +25,7 @@ export default function TopNavBar ({ Login }) {
 
   const handleLogOut = () => {
     console.log('>>> logging out')
+    dispatch(fetchLogout())
     // di sini hapus asyncstorage
     navigation.navigate('Login')
   }
@@ -43,7 +47,7 @@ export default function TopNavBar ({ Login }) {
         <MenuItem accessoryLeft={ProfileIcon} title='Profile' />
         <MenuItem 
           accessoryLeft={LogoutIcon} 
-          title='Go to Login' 
+          title='Logout' 
           onPress={() => handleLogOut()}/>
       </OverflowMenu>
     </React.Fragment>
