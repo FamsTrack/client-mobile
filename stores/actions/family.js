@@ -1,7 +1,7 @@
-const endpoint = 'http://192.168.1.7:3000/families'
+//const endpoint = 'http://192.168.1.7:3000/families'
 //const endpoint = 'http://192.168.1.3:3000/families'
 import AsyncStorage from '@react-native-async-storage/async-storage'
-import axios from 'axios'
+import axios from '../../api/axios'
 
 export function fetchFamiliesStart () {
   return {
@@ -58,7 +58,7 @@ export function fetchAFamily () {
       dispatch(fetchFamiliesStart())
       const access_token = await AsyncStorage.getItem('access_token')
 
-      const response = await axios.get(`${endpoint}/user`, {
+      const response = await axios.get('/families/user', {
         headers: {
           access_token
         }
@@ -80,7 +80,7 @@ export function fetchAFamily () {
       dispatch(addSchedules(payloadSchedule))
     } catch (err) {
       dispatch(fetchFamiliesFailed(err))
-      console.log('>>> err', err)
+      console.log('>>>>>> ini error-nya', err)
     }
   }
 }

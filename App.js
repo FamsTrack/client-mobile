@@ -28,9 +28,8 @@ import getHeaderTitle from './helpers/headerTitle'
 import { TabNavigator } from './components/BottomNavBar'
 
 // for socket.io client
-import io from 'socket.io-client'
-window.navigator.userAgent = "react-native"
-const ENDPOINT = 'http://192.168.1.7/:3000'
+import { io } from 'socket.io-client'
+const ENDPOINT = 'https://45de272b9381.ngrok.io'
 
 
 function HomeTabs () {
@@ -55,6 +54,9 @@ export default function App () {
   const [notification, setNotification] = useState(false)
   const notificationListener = useRef()
   const responseListener = useRef()
+
+  const [response, setResponse] = useState('')
+  const socket = io(ENDPOINT, { transports: ["websocket"], jsonp: false });
 
   useEffect(() => {
     if (expoPushToken) {
@@ -119,31 +121,12 @@ export default function App () {
   }, [])
 
   useEffect(() => {
-    const socket = io(ENDPOINT)
-    socket.on('data:test', data => {
+    socket.on("data:device", data => {
       setResponse(data)
-      console.log('>>>>', data)
+      console.log(data)
     })
-    //const socket = io('http://localhost:3000', {
-    //transports: ['websocket'], jsonp: false
-    //});
-    //socket.connect();
-    //socket.on('connect', () => {
-    //console.log('connected to socket server');
-    //});
-
-    //var socket = new SocketIO('localhost:3000');
-    //socket.on('connect', () => {
-    //console.log('Wahey -> connected!');
-    //});
-
-    //const socket = io(ENDPOINT, { transports: ['websocket'], forceNew: true });
-    //socket.on('connected', () => {
-    //debugger;
-    //})
-
-    //// Clean up the effect
-    return () => socket.disconnect()
+    // CLEAN UP THE EFFECT
+    return () => socket.disconnect();
   }, [])
 
   return (

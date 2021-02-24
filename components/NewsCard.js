@@ -19,7 +19,7 @@ export default function NewsCard (props) {
           style={{ fontWeight: 'bold' }}
         >{props.title}</Text>
         <Text
-          style={{ fontWeight: '100' }}>{props.source}</Text>
+          style={{ fontWeight: '100' }}>{props.description}</Text>
       </Card>
     </>
   )

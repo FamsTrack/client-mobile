@@ -6,7 +6,6 @@ import CustomMarker from '../components/CustomMarker'
 import TopNavBar from '../components/TopNavBar'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchAFamily } from '../stores/actions/family'
-import store from '../stores/'
 
 const takeValues = (arrayOfObjects, key) => {
   const permittedValues = []
@@ -39,7 +38,6 @@ export default function HomeScreen () {
       })
       setMarkers(clients)
     }
-    //console.log('>>>> store: ', store.getState())
   }, [])
 
   const [region, setRegion] = useState({

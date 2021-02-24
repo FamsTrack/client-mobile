@@ -61,8 +61,6 @@ export default function LoginScreen ({ navigation }) {
       password,
       pushToken: token
     }
-    console.log('>>> disini pevita login', payload)
-
     dispatch(fetchLogin(payload))
   }
 
@@ -87,7 +85,7 @@ export default function LoginScreen ({ navigation }) {
           value={password}
           required
           placeholder='Input your password'
-          caption='Should contain at least 8 symbols'
+          caption='Should contain at least 6 characters'
           accessoryRight={renderIcon}
           captionIcon={AlertIcon}
           secureTextEntry={secureTextEntry}

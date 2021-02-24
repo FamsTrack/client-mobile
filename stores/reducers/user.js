@@ -30,6 +30,11 @@ export function userReducer (state = initialState, action) {
         ...state,
         error: action.payload
       }
+    case 'LOGOUT_FAILED':
+      return {
+        ...state,
+        error: action.payload
+      }
     case 'STORE_TOKEN':
       return {
         ...state,
