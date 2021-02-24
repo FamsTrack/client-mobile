@@ -1,7 +1,6 @@
 import React from 'react';
 import { StyleSheet, View, Image } from 'react-native'
 import { Layout, Card, Text, useTheme, Avatar } from '@ui-kitten/components';
-import CustomMarker from '../components/CustomMarker'
 
 export default function MembersCard (props) {
   const theme = useTheme()
@@ -9,8 +8,8 @@ export default function MembersCard (props) {
     return (
       <View style={styles.container}>
         <Image
-          style={{width: 40, height: 40, marginHorizontal: 8}}
-          source={{uri}} />
+          style={{ width: 40, height: 40, marginHorizontal: 8 }}
+          source={{ uri }} />
       </View>
     )
   }
@@ -23,12 +22,12 @@ export default function MembersCard (props) {
 
       <View
         style={styles.bodyContainer}>
-          <Text>Gender: {props.gender}</Text>
+        <Text>Gender: {props.gender}</Text>
       </View>
 
       <View
         style={styles.bodyContainer}>
-          <Text>Contact: {props.contact}</Text>
+        <Text>Contact: {props.contact}</Text>
       </View>
 
     </Card>

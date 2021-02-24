@@ -35,8 +35,6 @@ export function fetchNews () {
           access_token
         }
       })
-
-      console.log('>>>> response:', response.data)
       dispatch(fetchNewsSuccess(response.data))
     } catch (err) {
       dispatch(fetchNewsFailed(err))

@@ -28,7 +28,7 @@ export function fetchLogin (payload) {
       dispatch(loginStart())
       const response = await axios.post('/login', payload)
 
-      await AsyncStorage.setItem('access_token', JSON.stringify(response.data.access_token))
+      await AsyncStorage.setItem('access_token', response.data.access_token)
       dispatch(loginSuccess())
 
     } catch (err) {

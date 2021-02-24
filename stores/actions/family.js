@@ -57,6 +57,7 @@ export function fetchAFamily () {
 
       dispatch(fetchFamiliesStart())
       const access_token = await AsyncStorage.getItem('access_token')
+      console.log('>>> ini access tokennya:', access_token)
 
       const response = await axios.get('/families/user', {
         headers: {
@@ -80,7 +81,7 @@ export function fetchAFamily () {
       dispatch(addSchedules(payloadSchedule))
     } catch (err) {
       dispatch(fetchFamiliesFailed(err))
-      console.log('>>>>>> ini error-nya', err)
+      console.log('>>>>>> ini error-nya', err.response.data)
     }
   }
 }

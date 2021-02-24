@@ -29,8 +29,7 @@ import { TabNavigator } from './components/BottomNavBar'
 
 // for socket.io client
 import { io } from 'socket.io-client'
-const ENDPOINT = 'https://45de272b9381.ngrok.io'
-
+const ENDPOINT = 'https://0bd8106103b0.ngrok.io'
 
 function HomeTabs () {
   return (
@@ -163,22 +162,6 @@ export default function App () {
                 }
               </Stack.Navigator>
             </NavigationContainer>
-            {
-              // buat testing push notification
-              //<View
-              //style={{
-              //flex: 1,
-              //alignItems: 'center',
-              //justifyContent: 'space-around',
-              //}}>
-              //<Text>Your expo push token: {expoPushToken}</Text>
-              //<View style={{ alignItems: 'center', justifyContent: 'center' }}>
-              //<Text>Title: {notification && notification.request.content.title} </Text>
-              //<Text>Body: {notification && notification.request.content.body}</Text>
-              //<Text>Data: {notification && JSON.stringify(notification.request.content.data)}</Text>
-              //</View>
-              //</View>
-            }
           </Provider>
         </ApplicationProvider>
       </SafeAreaProvider>

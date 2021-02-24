@@ -1,11 +1,13 @@
 import React from 'react';
 import { StyleSheet } from 'react-native'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { createStackNavigator } from '@react-navigation/stack'
 import { BottomNavigation, BottomNavigationTab, Icon } from '@ui-kitten/components'
 import HomeScreen from '../screens/home'
 import NewsScreen from '../screens/news'
 import ScheduleScreen from '../screens/schedule'
 import MembersScreen from '../screens/members'
+import HistoryScreen from '../screens/history'
 
 const { Navigator, Screen } = createBottomTabNavigator()
 
@@ -46,12 +48,23 @@ const BottomTabBar = ({ navigation, state }) => (
   </BottomNavigation>
 )
 
+const MembersStack = createStackNavigator()
+function MembersStackScreen () {
+  return (
+    <MembersStack.Navigator>
+      <MembersStack.Screen name='Members' component={MembersScreen} />
+      <MembersStack.Screen name='History' component={HistoryScreen} />
+    </MembersStack.Navigator>
+  )
+}
+
+
 export const TabNavigator = () => (
   <Navigator tabBar={props => <BottomTabBar {...props} />}>
     <Screen name='Home' component={HomeScreen} />
     <Screen name='News' component={NewsScreen} />
     <Screen name='Schedule' component={ScheduleScreen} />
-    <Screen name='Members' component={MembersScreen} />
+    <Screen name='Members' component={MembersStackScreen} />
   </Navigator>
 )
 

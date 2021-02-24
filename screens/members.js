@@ -7,7 +7,16 @@ import TouchableScale from 'react-native-touchable-scale'
 import TopNavBar from '../components/TopNavBar'
 import { Spinner } from '@ui-kitten/components'
 
-export default function MembersScreen () {
+export default function MembersScreen ({ navigation }) {
+  useEffect(() => {
+    if (loading) {
+      setSpinner(true)
+    }
+    if (clients.length > 0) {
+      setSpinner(false)
+    }
+  }, [])
+
   const { clients, loading, error } = useSelector((state) => state.family)
   const [spinner, setSpinner] = useState(false)
 
@@ -15,15 +24,10 @@ export default function MembersScreen () {
     return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
-  useEffect(() => {
-    if (loading) {
-      console.log('<<<< ini loading', loading)
-      setSpinner(true)
-    }
-    if (clients.length > 0) {
-      setSpinner(false)
-    }
-  }, [])
+  const goToHistory = () => {
+    navigation.push('History',)
+  }
+
 
   // data buat mockup
   //const [membersList] = useState([
@@ -65,6 +69,7 @@ export default function MembersScreen () {
           spinner ? <Spinner /> :
             clients.map((member) => (
               <ListItem
+                onPress={() => navigation.push('History', member)}
                 style={{ marginBottom: 10 }}
                 key={member.id}
                 bottomDivider
@@ -86,7 +91,8 @@ export default function MembersScreen () {
                   <ListItem.Subtitle>{member.gender}</ListItem.Subtitle>
                   <ListItem.Subtitle>{member.contact}</ListItem.Subtitle>
                 </ListItem.Content>
-                <ListItem.Chevron color="white" />
+                <ListItem.Chevron color="white"
+                />
               </ListItem>
             ))
         }

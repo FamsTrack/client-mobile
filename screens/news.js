@@ -20,7 +20,6 @@ export default function NewsScreen () {
     if (news.length > 0) {
       setSpinner(false)
     }
-    console.log('>>>>> ini news', news)
   }, [])
 
   const renderItem = ({ item }) => (
