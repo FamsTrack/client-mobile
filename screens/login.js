@@ -64,6 +64,15 @@ export default function LoginScreen ({ navigation }) {
     dispatch(fetchLogin(payload))
   }
 
+  const LoadingIndicator = (props) => (
+    <View style={[props.style, styles.indicator]}>
+      <Spinner
+        size='small'
+        status='control'
+      />
+    </View>
+  )
+
 
   return (
     <>
@@ -91,18 +100,22 @@ export default function LoginScreen ({ navigation }) {
           secureTextEntry={secureTextEntry}
           onChangeText={password => setPassword(password)}
         />
-        <Button
-          style={styles.loginButton}
-          onPress={() => handleSubmit()}
-        >
-          LOGIN</Button>
+        {
+          spinner ? <Button
+            style={styles.loginButton}
+            onPress={() => handleSubmit()}
+            accessoryLeft={LoadingIndicator}
+          > LOADING </Button> :
+            <Button
+              style={styles.loginButton}
+              onPress={() => handleSubmit()}
+            >
+              LOGIN</Button>
+        }
         {
           visible && <CustomModal
             text={warningText}
             setVisible={() => handleVisible()} />
-        }
-        {
-          spinner && <Spinner />
         }
       </View>
     </>
@@ -120,5 +133,10 @@ const styles = StyleSheet.create({
   tinyLogo: {
     width: 200,
     height: 200,
+    marginVertical: 10
+  },
+  indicator: {
+    justifyContent: 'center',
+    alignItems: 'center',
   }
 })
