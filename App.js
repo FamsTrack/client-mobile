@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { Text, View } from 'react-native'
 // expo notification
 import * as Notifications from 'expo-notifications'
 import Constants from 'expo-constants'
