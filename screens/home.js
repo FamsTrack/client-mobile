@@ -45,7 +45,6 @@ export default function HomeScreen () {
   }, [])
 
   useEffect(() => {
-    console.log('>>> masuk useEffect')
     setMarkers(clients)
 
   }, [clients])

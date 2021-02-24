@@ -80,7 +80,6 @@ export function fetchAFamily () {
       dispatch(addSchedules(payloadSchedule))
     } catch (err) {
       dispatch(fetchFamiliesFailed(err))
-      console.log('>>>>>> ini error-nya', err.response.data)
     }
   }
 }

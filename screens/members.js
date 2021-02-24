@@ -21,52 +21,26 @@ export default function MembersScreen ({ navigation }) {
   const [spinner, setSpinner] = useState(false)
 
   const capitalizeFirstLetter = (string) => {
-    return string.charAt(0).toUpperCase() + string.slice(1);
+    return string.charAt(0).toUpperCase() + string.slice(1)
   }
 
   const goToHistory = () => {
-    navigation.push('History',)
+    navigation.push('History')
   }
 
-
-  // data buat mockup
-  //const [membersList] = useState([
-  //{
-  //id: 1,
-  //name: 'Samara',
-  //gender: 'female',
-  //image: 'https://images.unsplash.com/photo-1450297350677-623de575f31c?ixlib=rb-1.2.1&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&ixid=eyJhcHBfaWQiOjE3Nzg0fQ',
-  //contact: '+62 123456'
-  //},
-  //{
-  //id: 2,
-  //name: 'Kanya',
-  //gender: 'female',
-  //image: 'https://uifaces.co//our-content//donated//93aChDW6.jpg',
-  //contact: '+62 392810'
-  //},
-  //{
-  //id: 3,
-  //name: 'Kenji',
-  //gender: 'male',
-  //image: 'https://uifaces.co//our-content//donated//gPZwCbdS.jpg',
-  //contact: '+62 201923'
-  //},
-  //{
-  //id: 4,
-  //name: 'Sandra',
-  //gender: 'female',
-  //image: 'https://uifaces.co/our-content/donated/hRomGWuB.jpg',
-  //contact: '+62 201923'
-  //},
-  //])
+  if (loading) return (
+    <View style={styles.spinnerContainer}>
+      <Spinner
+        size="large"
+        style={styles.spinnerStyle} />
+    </View>
+  )
 
   return (
     <>
       <TopNavBar style={{ flex: 1 }} />
       <View style={{ flex: 4 }}>
         {
-          spinner ? <Spinner /> :
             clients.map((member) => (
               <ListItem
                 onPress={() => navigation.push('History', member)}
@@ -101,3 +75,13 @@ export default function MembersScreen ({ navigation }) {
   )
 }
 
+const styles = StyleSheet.create({
+  spinnerContainer: {
+    marginTop: 240,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  spinnerStyle: {
+    alignSelf: 'center'
+  }
+})

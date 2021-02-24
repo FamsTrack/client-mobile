@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Image, Dimensions, Text } from 'react-native'
+import { StyleSheet, View, Image } from 'react-native'
 import globalStyles from '../components/GlobalStyles'
 import { TouchableWithoutFeedback } from 'react-native'
-import { Input, Icon, Button, Spinner } from '@ui-kitten/components'
+import { Input, Icon, Button, Spinner, StyleService, useStyleSheet, useTheme } from '@ui-kitten/components'
 import CustomModal from '../components/CustomModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { fetchLogin } from '../stores/actions/user'
@@ -73,6 +73,7 @@ export default function LoginScreen ({ navigation }) {
     </View>
   )
 
+  const styles = useStyleSheet(themedStyles)
 
   return (
     <>
@@ -103,10 +104,12 @@ export default function LoginScreen ({ navigation }) {
         {
           spinner ? <Button
             style={styles.loginButton}
+            status='success'
             onPress={() => handleSubmit()}
             accessoryLeft={LoadingIndicator}
           > LOADING </Button> :
             <Button
+              status='success'
               style={styles.loginButton}
               onPress={() => handleSubmit()}
             >
@@ -122,13 +125,14 @@ export default function LoginScreen ({ navigation }) {
   )
 }
 
-const styles = StyleSheet.create({
+const themedStyles = StyleService.create({
   input: {
-    margin: 2,
+    margin: 2
   },
   loginButton: {
     marginTop: 20,
-    alignSelf: 'stretch'
+    alignSelf: 'stretch',
+    color: 'color-success-500'
   },
   tinyLogo: {
     width: 200,

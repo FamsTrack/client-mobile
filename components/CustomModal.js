@@ -19,6 +19,7 @@ export default function CustomModal (props) {
         <Card disabled={true}>
           <Text>{props.text}</Text>
           <Button
+            status='danger'
             style={styles.dismissButton}
             onPress={() => handlePress()}>
             DISMISS

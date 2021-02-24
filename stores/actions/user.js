@@ -28,6 +28,8 @@ export function fetchLogin (payload) {
       dispatch(loginStart())
       const response = await axios.post('/login', payload)
 
+      console.log('response baru login: ', response.data)
+
       await AsyncStorage.setItem('access_token', response.data.access_token)
       dispatch(loginSuccess())
 

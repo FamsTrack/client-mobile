@@ -5,7 +5,7 @@ import { Avatar, Icon, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigatio
 import { useNavigation } from '@react-navigation/native'
 import { fetchLogout } from '../stores/actions/user'
 
-export default function TopNavBar ({ Login }) {
+export default function TopNavBar () {
   const [menuVisible, setMenuVisible] = React.useState(false)
   const navigation = useNavigation()
   const { family, loading, error } = useSelector((state) => state.family)
@@ -24,10 +24,12 @@ export default function TopNavBar ({ Login }) {
   )
 
   const handleLogOut = () => {
-    console.log('>>> logging out')
     dispatch(fetchLogout())
-    // di sini hapus asyncstorage
     navigation.navigate('Login')
+  }
+
+  const goToMyProfile = () => {
+    navigation.navigate('EditProfile')
   }
 
   const toggleMenu = () => {
@@ -44,7 +46,11 @@ export default function TopNavBar ({ Login }) {
         anchor={renderMenuAction}
         visible={menuVisible}
         onBackdropPress={toggleMenu}>
-        <MenuItem accessoryLeft={ProfileIcon} title='Profile' />
+        <MenuItem 
+          accessoryLeft={ProfileIcon} 
+          title='My Profile' 
+          onPress={() => goToMyProfile()}
+        />
         <MenuItem 
           accessoryLeft={LogoutIcon} 
           title='Logout' 
@@ -57,7 +63,7 @@ export default function TopNavBar ({ Login }) {
     <View style={styles.titleContainer}>
       <Avatar
         style={styles.logo}
-        source={{uri: 'https://images.pexels.com/photos/428364/pexels-photo-428364.jpeg?auto=compress&cs=tinysrgb&crop=faces&fit=crop&h=200&w=200'}}
+        source={require('../assets/FamTrack_vector.png')}
       />
       <Text {...props}>{family.name}'s family</Text>
     </View>

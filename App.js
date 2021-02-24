@@ -130,8 +130,12 @@ export default function App () {
                   isSignedIn ? (
                     <>
 
-                      <Stack.Screen name="Home" component={HomeTabs} />
-                      <Stack.Screen name="EditProfile" component={EditProfile} />
+                      <Stack.Screen 
+                        name="Home" component={HomeTabs} 
+                          options={({ route }) => ({
+                            headerTitle: getHeaderTitle(route),
+                          })} />
+                        <Stack.Screen name="EditProfile" component={EditProfile} />
                     </>
                   ) : (
                       <>
@@ -144,6 +148,7 @@ export default function App () {
                           options={({ route }) => ({
                             headerTitle: getHeaderTitle(route),
                           })} />
+                        <Stack.Screen name="EditProfile" component={EditProfile} />
                       </>
                     )
                 }

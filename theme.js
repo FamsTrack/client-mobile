@@ -1,4 +1,4 @@
-{
+const color = {
   "color-primary-100": "#EFFEEC",
   "color-primary-200": "#DDFED9",
   "color-primary-300": "#C6FCC5",
@@ -7,7 +7,7 @@
   "color-primary-600": "#72D48C",
   "color-primary-700": "#4FB172",
   "color-primary-800": "#328F5B",
-  "color-primary-900": "#1E764E",
+  "color-primary-9j0": "#1E764E",
   "color-primary-transparent-100": "rgba(157, 247, 172, 0.08)",
   "color-primary-transparent-200": "rgba(157, 247, 172, 0.16)",
   "color-primary-transparent-300": "rgba(157, 247, 172, 0.24)",
