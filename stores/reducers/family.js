@@ -30,6 +30,11 @@ export function familyReducer (state = initialState, action) {
         ...state,
         clients: action.payload
       }
+    case 'UPDATE_LOCATION':
+      return {
+        ...state,
+        clients: action.payload
+      }
     case 'ADD_SCHEDULES':
       return {
         ...state,

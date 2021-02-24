@@ -57,7 +57,6 @@ export function fetchAFamily () {
 
       dispatch(fetchFamiliesStart())
       const access_token = await AsyncStorage.getItem('access_token')
-      console.log('>>> ini access tokennya:', access_token)
 
       const response = await axios.get('/families/user', {
         headers: {
@@ -90,6 +89,14 @@ export function addClients (data) {
   return {
     type: 'ADD_CLIENTS',
     payload: data
+  }
+}
+
+export function updateLocation (data) {
+  return (dispatch, getState) => {
+    const { clients } = getState()
+    console.log('>>>> clients:', clients)
+    console.log('>>>> clients:', data)
   }
 }
 

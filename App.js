@@ -29,7 +29,7 @@ import { TabNavigator } from './components/BottomNavBar'
 
 // for socket.io client
 import { io } from 'socket.io-client'
-const ENDPOINT = 'https://0bd8106103b0.ngrok.io'
+const ENDPOINT = 'https://famstrack.herokuapp.com'
 
 function HomeTabs () {
   return (
@@ -79,7 +79,6 @@ export default function App () {
           return
         }
         const token = (await Notifications.getExpoPushTokenAsync()).data
-        console.log('>>>> ini tokennya: ', token)
         setExpoPushToken(token)
       } else {
         alert('Must use physical device for Push Notifications')
@@ -122,7 +121,7 @@ export default function App () {
   useEffect(() => {
     socket.on("data:device", data => {
       setResponse(data)
-      console.log(data)
+      console.log('>>>>>', data)
     })
     // CLEAN UP THE EFFECT
     return () => socket.disconnect();
