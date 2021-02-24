@@ -94,9 +94,13 @@ export function addClients (data) {
 
 export function updateLocation (data) {
   return (dispatch, getState) => {
-    const { clients } = getState()
-    console.log('>>>> clients:', clients)
-    console.log('>>>> clients:', data)
+    const { family } = getState()
+    family.clients.forEach((client) => {
+      if (data.clientId === client.id) {
+        client.device = data
+      }
+    })
+    dispatch(addClients(family.clients))
   }
 }
 

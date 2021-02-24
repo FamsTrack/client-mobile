@@ -27,9 +27,6 @@ import EditProfile from './screens/editProfile'
 import getHeaderTitle from './helpers/headerTitle'
 import { TabNavigator } from './components/BottomNavBar'
 
-// for socket.io client
-import { io } from 'socket.io-client'
-const ENDPOINT = 'https://famstrack.herokuapp.com'
 
 function HomeTabs () {
   return (
@@ -53,9 +50,6 @@ export default function App () {
   const [notification, setNotification] = useState(false)
   const notificationListener = useRef()
   const responseListener = useRef()
-
-  const [response, setResponse] = useState('')
-  const socket = io(ENDPOINT, { transports: ["websocket"], jsonp: false });
 
   useEffect(() => {
     if (expoPushToken) {
@@ -118,14 +112,6 @@ export default function App () {
     }
   }, [])
 
-  useEffect(() => {
-    socket.on("data:device", data => {
-      setResponse(data)
-      console.log('>>>>>', data)
-    })
-    // CLEAN UP THE EFFECT
-    return () => socket.disconnect();
-  }, [])
 
   return (
     <>

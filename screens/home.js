@@ -5,9 +5,18 @@ import { Spinner } from '@ui-kitten/components'
 import CustomMarker from '../components/CustomMarker'
 import TopNavBar from '../components/TopNavBar'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAFamily } from '../stores/actions/family'
+import { fetchAFamily, updateLocation } from '../stores/actions/family'
+
+// for socket.io client
+import { io } from 'socket.io-client'
+const ENDPOINT = 'https://famstrack.herokuapp.com'
+
 
 export default function HomeScreen () {
+  // socket.io related
+  const socket = io(ENDPOINT, { transports: ["websocket"], jsonp: false })
+  const [response, setResponse] = useState('')
+
   const dispatch = useDispatch()
   const { family, clients, loading, error } = useSelector((state) => state.family)
 
@@ -26,6 +35,18 @@ export default function HomeScreen () {
   }, [])
 
   useEffect(() => {
+    socket.on("data:device", data => {
+      setResponse(data)
+      dispatch(updateLocation(data))
+
+    })
+    // CLEAN UP THE EFFECT
+    return () => socket.disconnect()
+  }, [])
+
+  useEffect(() => {
+    console.log('>>> masuk useEffect')
+    setMarkers(clients)
 
   }, [clients])
 
