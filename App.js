@@ -103,7 +103,7 @@ export default function App () {
 
     // when we clicked on it
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
-      console.log('>>>> ini response-nya', response)
+      console.log('>>>> response', response)
     })
 
     return () => {
@@ -124,7 +124,9 @@ export default function App () {
         >
           <Provider store={store}>
             <NavigationContainer>
-              <Stack.Navigator>
+              <Stack.Navigator
+              //screenOptions={{ headerShown: false }}
+              >
                 {
                   isSignedIn ? (
                     <>
