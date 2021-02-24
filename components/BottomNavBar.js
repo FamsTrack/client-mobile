@@ -52,11 +52,30 @@ const MembersStack = createStackNavigator()
 function MembersStackScreen () {
   return (
     <MembersStack.Navigator>
-      <MembersStack.Screen name='Members' component={MembersScreen} />
-      <MembersStack.Screen name='History' component={HistoryScreen} />
+      <MembersStack.Screen
+        name='Members'
+        component={MembersScreen}
+        options={{
+          headerTitle: 'Members',
+          headerLeft: () => {
+            return null
+          },
+        }}
+      />
+      <MembersStack.Screen
+        name='History'
+        component={HistoryScreen}
+        options={{
+          headerTitle: 'History',
+          headerLeft: () => {
+            return null
+          },
+        }}
+      />
     </MembersStack.Navigator>
   )
 }
+
 
 
 export const TabNavigator = () => (

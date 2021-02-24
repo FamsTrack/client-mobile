@@ -124,11 +124,12 @@ export default function App () {
           <Provider store={store}>
             <NavigationContainer>
               <Stack.Navigator
-              //screenOptions={{ headerShown: false }}
+                screenOptions={{ headerShown: false }}
               >
                 {
                   isSignedIn ? (
                     <>
+
                       <Stack.Screen name="Home" component={HomeTabs} />
                       <Stack.Screen name="EditProfile" component={EditProfile} />
                     </>

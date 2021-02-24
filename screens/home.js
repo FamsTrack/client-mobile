@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, View, Text, Image, Dimensions } from 'react-native'
+import { StyleSheet, View, StatusBar, Dimensions } from 'react-native'
 import MapView, { Marker } from 'react-native-maps'
 import { Spinner } from '@ui-kitten/components'
 import CustomMarker from '../components/CustomMarker'
@@ -80,6 +80,7 @@ export default function HomeScreen () {
 
   return (
     <>
+      <StatusBar hidden />
       <TopNavBar style={{ flex: 1 }} />
       <View style={{ flex: 4 }}>
         <MapView
