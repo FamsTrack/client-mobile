@@ -4,7 +4,8 @@ const initialState = {
   error: '',
   family: {},
   clients: [],
-  schedules: []
+  schedules: [],
+  buzzerStatus: false
 }
 
 export function familyReducer (state = initialState, action) {
@@ -68,6 +69,12 @@ export function familyReducer (state = initialState, action) {
       return {
         ...state,
         error: action.payload
+      }
+    case 'BUZZER_SUCCESS':
+      return {
+        ...state,
+        loading: false,
+        buzzerStatus: true
       }
     default:
       return state

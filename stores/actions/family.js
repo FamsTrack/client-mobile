@@ -180,3 +180,36 @@ export function fetchAClient (url) {
   }
 }
 
+export function initBuzzer (arduinoKey, arduinoId) {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchClientsStart())
+      const access_token = await AsyncStorage.getItem('access_token')
+
+      const response = await axios.get(`/devices/${arduinoId}`, {
+        headers: {
+          access_token
+        }
+      })
+
+      const resp = await axios.get(`/devices/${arduinoKey}/key?buzzerStatus=${!response.data.buzzerStatus}`, {
+        headers: {
+          access_token
+        }
+      })
+
+      if (resp.data === 1) {
+        dispatch(buzzerSuccess())
+      }
+
+    } catch (err) {
+      dispatch(fetchFamiliesFailed(err))
+    }
+  }
+}
+
+export function buzzerSuccess () {
+  return {
+    type: 'BUZZER_SUCCESS'
+  }
+}
