@@ -9,6 +9,7 @@ export default function TopNavBar () {
   const [menuVisible, setMenuVisible] = React.useState(false)
   const navigation = useNavigation()
   const { family, loading, error } = useSelector((state) => state.family)
+  const { user } = useSelector((state) => state.user)
   const dispatch = useDispatch()
 
   const MenuIcon = (props) => (
@@ -33,7 +34,7 @@ export default function TopNavBar () {
   }
 
   const toggleMenu = () => {
-    setMenuVisible(!menuVisible);
+    setMenuVisible(!menuVisible)
   };
 
   const renderMenuAction = () => (
@@ -46,15 +47,15 @@ export default function TopNavBar () {
         anchor={renderMenuAction}
         visible={menuVisible}
         onBackdropPress={toggleMenu}>
-        <MenuItem 
-          accessoryLeft={ProfileIcon} 
-          title='My Profile' 
+        <MenuItem
+          accessoryLeft={ProfileIcon}
+          title='My Profile'
           onPress={() => goToMyProfile()}
         />
-        <MenuItem 
-          accessoryLeft={LogoutIcon} 
-          title='Logout' 
-          onPress={() => handleLogOut()}/>
+        <MenuItem
+          accessoryLeft={LogoutIcon}
+          title='Logout'
+          onPress={() => handleLogOut()} />
       </OverflowMenu>
     </React.Fragment>
   );
@@ -65,7 +66,10 @@ export default function TopNavBar () {
         style={styles.logo}
         source={require('../assets/FamTrack_vector.png')}
       />
-      <Text {...props}>{family.name}'s family</Text>
+      {
+        user === 'family' ? <Text {...props}>{family.name}'s family</Text> :
+          <Text {...props}>Admin</Text>
+      }
     </View>
   )
 

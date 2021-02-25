@@ -109,3 +109,107 @@ export function addSchedules (data) {
     payload: data
   }
 }
+
+export function fetchClientsStart () {
+  return {
+    type: 'FETCH_CLIENTS_START'
+  }
+}
+
+export function fetchClientsSuccess (data) {
+  return {
+    type: 'FETCH_CLIENTS',
+    payload: data
+  }
+}
+
+export function fetchAClientSuccess (data) {
+  return {
+    type: 'FETCH_A_CLIENT',
+    payload: data
+  }
+}
+
+export function fetchClientsFailed (error) {
+  return {
+    type: 'FETCH_CLIENTS_FAILED',
+    payload: error
+  }
+}
+
+export function fetchClients () {
+  return async (dispatch) => {
+    try {
+
+      dispatch(fetchClientsStart())
+      const access_token = await AsyncStorage.getItem('access_token')
+      const response = await axios.get('/clients', {
+        headers: {
+          access_token
+        }
+      })
+      const payloadSchedule = response.data[0].group.schedule
+
+      dispatch(fetchClientsSuccess(response.data))
+      dispatch(addSchedules(payloadSchedule))
+    } catch (err) {
+      dispatch(fetchClientsFailed(err))
+      console.log('err', err)
+    }
+  }
+}
+
+export function fetchAClient (url) {
+  return async (dispatch) => {
+    try {
+
+      dispatch(fetchClientsStart())
+      const res = await fetch(url)
+
+      if (!res.ok) {
+        throw Error(res.statusText)
+      }
+
+      const data = await res.json()
+      dispatch(fetchAClientSuccess(data))
+
+    } catch (err) {
+      dispatch(fetchClientsFailed(err))
+      console.log('err', err)
+    }
+  }
+}
+
+export function initBuzzer (arduinoKey, arduinoId) {
+  return async (dispatch) => {
+    try {
+      dispatch(fetchClientsStart())
+      const access_token = await AsyncStorage.getItem('access_token')
+
+      const response = await axios.get(`/devices/${arduinoId}`, {
+        headers: {
+          access_token
+        }
+      })
+
+      const resp = await axios.get(`/devices/${arduinoKey}/key?buzzerStatus=${!response.data.buzzerStatus}`, {
+        headers: {
+          access_token
+        }
+      })
+
+      if (resp.data === 1) {
+        dispatch(buzzerSuccess())
+      }
+
+    } catch (err) {
+      dispatch(fetchFamiliesFailed(err))
+    }
+  }
+}
+
+export function buzzerSuccess () {
+  return {
+    type: 'BUZZER_SUCCESS'
+  }
+}
