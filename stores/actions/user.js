@@ -31,7 +31,7 @@ export function fetchLogin (payload) {
       console.log('response baru login: ', response.data)
 
       await AsyncStorage.setItem('access_token', response.data.access_token)
-      dispatch(loginSuccess())
+      dispatch(loginSuccess(response.data.role))
 
     } catch (err) {
       dispatch(loginFailed(err))

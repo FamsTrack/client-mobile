@@ -2,7 +2,8 @@ const initialState = {
   loading: false,
   error: '',
   isLoggedIn: true,
-  token: ''
+  token: '',
+  role: ''
 }
 
 export function userReducer (state = initialState, action) {
@@ -17,7 +18,8 @@ export function userReducer (state = initialState, action) {
         ...state,
         isLoggedIn: true,
         loading: false,
-        error: false
+        error: false,
+        role: action.payload
       }
     case 'LOGOUT':
       return {

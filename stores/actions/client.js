@@ -1,3 +1,6 @@
+import axios from '../../api/axios'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+
 export function fetchClientsStart () {
   return {
     type: 'FETCH_CLIENTS_START'
@@ -25,19 +28,21 @@ export function fetchClientsFailed (error) {
   }
 }
 
-export function fetchClients (url) {
+export function fetchClients () {
   return async (dispatch) => {
     try {
 
       dispatch(fetchClientsStart())
-      const res = await fetch(url)
+      const access_token = await AsyncStorage.getItem('access_token')
+      const response = await axios.get('/clients', {
+        headers: {
+          access_token
+        }
+      })
 
-      if (!res.ok) {
-        throw Error(res.statusText)
-      }
+      //console.log('>>> admin login:', response.data)
 
-      const data = await res.json()
-      dispatch(fetchClientsSuccess(data.results))
+      dispatch(fetchClientsSuccess(response.data))
 
     } catch (err) {
       dispatch(fetchClientsFailed(err))

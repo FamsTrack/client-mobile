@@ -1,5 +1,4 @@
 import { createStore, combineReducers, applyMiddleware } from 'redux'
-import { clientReducer } from './reducers/client'
 import { userReducer } from './reducers/user'
 import { familyReducer } from './reducers/family'
 import { newsReducer } from './reducers/news'

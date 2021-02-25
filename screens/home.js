@@ -5,7 +5,7 @@ import { Spinner } from '@ui-kitten/components'
 import CustomMarker from '../components/CustomMarker'
 import TopNavBar from '../components/TopNavBar'
 import { useSelector, useDispatch } from 'react-redux'
-import { fetchAFamily, updateLocation } from '../stores/actions/family'
+import { fetchAFamily, updateLocation, fetchClients } from '../stores/actions/family'
 
 // for socket.io client
 import { io } from 'socket.io-client'
@@ -19,17 +19,35 @@ export default function HomeScreen () {
 
   const dispatch = useDispatch()
   const { family, clients, loading, error } = useSelector((state) => state.family)
+  const { user, role } = useSelector((state) => state.user)
 
   useEffect(() => {
-    dispatch(fetchAFamily())
-    if (clients[clients.length - 1] && clients[clients.length - 1].device) {
-      setRegion({
-        ...region,
-        latitude: clients[0].device.latitude,
-        longitude: clients[0].device.longitude,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421
-      })
+    if (role === 'family') {
+      dispatch(fetchAFamily())
+      if (clients[clients.length - 1] && clients[clients.length - 1].device) {
+        setRegion({
+          ...region,
+          latitude: clients[0].device.latitude,
+          longitude: clients[0].device.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        })
+      }
+      setMarkers(clients)
+    }
+    else {
+      dispatch(fetchClients())
+      //console.log('>>>> ini semua clients:', clients)
+      if (clients[clients.length - 1] && clients[clients.length - 1].device) {
+        console.log('>>>> masuk siniiii')
+        setRegion({
+          ...region,
+          latitude: clients[0].device.latitude,
+          longitude: clients[0].device.longitude,
+          latitudeDelta: 0.0922,
+          longitudeDelta: 0.0421
+        })
+      }
       setMarkers(clients)
     }
   }, [])
@@ -45,20 +63,30 @@ export default function HomeScreen () {
   }, [])
 
   useEffect(() => {
-    setMarkers(clients)
+    if (clients[clients.length - 1] && clients[clients.length - 1].device) {
+      console.log('<<< masuk sini lhoo')
+      setMarkers(clients)
+      setRegion({
+        ...region,
+        latitude: clients[0].device.latitude,
+        longitude: clients[0].device.longitude,
+        latitudeDelta: 0.0922,
+        longitudeDelta: 0.0421
+      })
+    }
 
   }, [clients])
 
   const [region, setRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 21.418972,
+    longitude: 39.829298,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   })
 
   const [initialRegion, setInitialRegion] = useState({
-    latitude: 37.78825,
-    longitude: -122.4324,
+    latitude: 21.418972,
+    longitude: 39.829298,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421
   })

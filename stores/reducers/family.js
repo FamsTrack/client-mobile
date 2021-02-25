@@ -47,6 +47,28 @@ export function familyReducer (state = initialState, action) {
         ...state,
         error: action.payload
       }
+    case 'FETCH_CLIENTS_START':
+      return {
+        ...state,
+        loading: true
+      }
+    case 'FETCH_CLIENTS':
+      return {
+        ...state,
+        clients: action.payload,
+        loading: false
+      }
+    case 'FETCH_A_CLIENT':
+      return {
+        ...state,
+        client: action.payload,
+        loading: false
+      }
+    case 'FETCH_CLIENT_FAILED':
+      return {
+        ...state,
+        error: action.payload
+      }
     default:
       return state
   }
