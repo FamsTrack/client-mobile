@@ -23,6 +23,7 @@ export default function HomeScreen () {
 
   useEffect(() => {
     if (role === 'family') {
+      console.log('>>> masuk sini')
       dispatch(fetchAFamily())
       if (clients[clients.length - 1] && clients[clients.length - 1].device) {
         setRegion({
@@ -35,10 +36,11 @@ export default function HomeScreen () {
       }
       setMarkers(clients)
     }
-    else {
+    else if (role === 'admin') {
       dispatch(fetchClients())
       //console.log('>>>> ini semua clients:', clients)
       if (clients[clients.length - 1] && clients[clients.length - 1].device) {
+        console.log('>>> role-nya', role)
         console.log('>>>> masuk siniiii')
         setRegion({
           ...region,
@@ -50,7 +52,7 @@ export default function HomeScreen () {
       }
       setMarkers(clients)
     }
-  }, [])
+  }, [role])
 
   useEffect(() => {
     socket.on("data:device", data => {

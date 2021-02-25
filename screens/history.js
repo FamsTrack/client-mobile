@@ -82,7 +82,7 @@ export default function HistoryScreen ({ route }) {
                     />
                   </View>
                   <View style={{ marginLeft: 5 }}>
-                    <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>Papa Pevita</Text>
+                    <Text style={{ fontWeight: 'bold', alignSelf: 'center' }}>{member.name}</Text>
 
                   </View>
                 </View>

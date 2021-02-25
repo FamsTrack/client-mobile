@@ -9,9 +9,10 @@ export function loginStart () {
   }
 }
 
-export function loginSuccess () {
+export function loginSuccess (data) {
   return {
-    type: 'LOGIN_SUCCESS'
+    type: 'LOGIN_SUCCESS',
+    payload: data
   }
 }
 
@@ -45,9 +46,23 @@ export function fetchLogout () {
     try {
       await AsyncStorage.removeItem('access_token')
       dispatch(logOutSuccess())
+      dispatch(resetNews())
+      dispatch(resetFamily())
     } catch (err) {
       dispatch(logoutFailed(err))
     }
+  }
+}
+
+export function resetNews () {
+  return {
+    type: 'RESET_NEWS'
+  }
+}
+
+export function resetFamily () {
+  return {
+    type: 'RESET_FAMILY'
   }
 }
 

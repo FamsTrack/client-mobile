@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { StyleSheet, View, Image } from 'react-native'
 import { Avatar, Icon, MenuItem, OverflowMenu, Text, TopNavigation, TopNavigationAction } from '@ui-kitten/components'
@@ -9,8 +9,12 @@ export default function TopNavBar () {
   const [menuVisible, setMenuVisible] = React.useState(false)
   const navigation = useNavigation()
   const { family, loading, error } = useSelector((state) => state.family)
-  const { user } = useSelector((state) => state.user)
+  const { role } = useSelector((state) => state.user)
   const dispatch = useDispatch()
+
+  useEffect(() => {
+    console.log('>>>> ini family:', family)
+  }, [])
 
   const MenuIcon = (props) => (
     <Icon {...props} name='more-vertical' />
@@ -67,7 +71,7 @@ export default function TopNavBar () {
         source={require('../assets/FamTrack_vector.png')}
       />
       {
-        user === 'family' ? <Text {...props}>{family.name}'s family</Text> :
+        role === 'family' ? <Text {...props}>{family.name}'s family</Text> :
           <Text {...props}>Admin</Text>
       }
     </View>
