@@ -1,0 +1,38 @@
+{
+  "expo": {
+    "name": "famtrack-app-android",
+    "slug": "famtrack-app-android",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "../FamTrack_vector.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 0
+    },
+    "assetBundlePatterns": [
+      "**/*"
+    ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#FFFFFF"
+      },
+      "package": "com.ical10.famtrackapp",
+      "config": {
+        "googleMaps": {
+          "apiKey": "AIzaSyBGZio-2xxy8Rsabu0ykR7xx6VkI1tbDVo"
+        }
+      }
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    }
+  }
+}

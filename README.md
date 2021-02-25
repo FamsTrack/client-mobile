@@ -1,2 +1,0 @@
-# client-mobile
-client mobile
