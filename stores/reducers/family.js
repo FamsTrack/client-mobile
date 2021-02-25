@@ -76,6 +76,15 @@ export function familyReducer (state = initialState, action) {
         loading: false,
         buzzerStatus: true
       }
+    case 'RESET_FAMILY':
+      return {
+        ...state,
+        families: [],
+        family: {},
+        clients: [],
+        schedules: [],
+        buzzerStatus: false
+      }
     default:
       return state
   }

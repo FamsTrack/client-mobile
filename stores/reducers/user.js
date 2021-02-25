@@ -25,7 +25,9 @@ export function userReducer (state = initialState, action) {
       return {
         ...state,
         isLoggedIn: false,
-        error: false
+        error: false,
+        token: '',
+        role: ''
       }
     case 'LOGIN_FAILED':
       return {

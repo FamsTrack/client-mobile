@@ -23,6 +23,11 @@ export function newsReducer (state = initialState, action) {
         ...state,
         error: action.payload
       }
+    case 'RESET_NEWS':
+      return {
+        ...state,
+        news: []
+      }
     default:
       return state
   }
